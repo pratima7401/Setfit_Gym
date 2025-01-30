@@ -1,0 +1,120 @@
+/* General container styles */
+.transformation-plan-container {
+    background-color: #1a202c; /* Dark background */
+    color: #e2d2e4;
+    padding: 2rem;
+    text-align: center;
+    height: 100%; /* Ensure full height for the section */
+  }
+  
+  /* Title styles */
+  .transformation-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  
+  /* Plan list container */
+  .plan-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem; /* Adds spacing between the title and the cards */
+  }
+  
+  /* Plan card styles */
+  .plan-card {
+    background: #1a202c;
+    color: #1b1c1f;
+    width: 18rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 500px; /* Set a minimum height for cards */
+  }
+  
+  .plan-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Plan card image */
+  .plan-card img {
+    width: 100%;
+    height: 15rem;
+    object-fit: cover;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  /* Plan card content */
+  .plan-content {
+    padding: 1rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1; /* Allow the content area to grow and take available space */
+  }
+  
+  .plan-info {
+    margin-bottom: auto; /* Pushes the button to the bottom */
+  }
+  
+  .plan-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .plan-price {
+    font-size: 1.5rem;
+    color: #AB47BC; /* Purple accent */
+    margin-bottom: 1rem;
+  }
+  
+  .plan-duration {
+    font-size: 0.9rem;
+    color: #718096;
+    margin-bottom: 1rem;
+  }
+  
+  .plan-features {
+    margin-bottom: 1rem;
+  }
+  
+  .plan-feature {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+  }
+  
+  .plan-feature-icon {
+    margin-right: 0.5rem;
+    color: #1dc748; /* Green check */
+  }
+  
+  /* Button styles */
+  .plan-button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    text-align: center;
+    background-color: #5d19dd;
+    color: #2c1a2e;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: auto; /* Keeps button at the bottom of the card */
+  }
+  
+  .plan-button:hover {
+    background-color: #eddf15;
+  }
