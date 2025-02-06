@@ -4,14 +4,44 @@
 
 body {
   color: #fff;
+  margin: 0;
+  padding: 0;
+}
+/* App.css */
+
+/* Standard Container */
+.container {
+  max-width: 1550px; /* Adjust for desired max-width */
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* Add padding for spacing on smaller screens */
+  padding-right: 1rem; /* Add padding for spacing on smaller screens */
 }
 
-.bg-image {
-  background-image: url('./assets/bg1.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 960px; /* Reduce max-width on medium screens */
+  }
 }
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 720px; /* Reduce max-width on smaller screens */
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    max-width: 100%; /* Full width for small screens */
+    padding-left: 0.5rem; /* Slightly reduce padding */
+    padding-right: 0.5rem; /* Slightly reduce padding */
+    background-color: black;
+  }
+}
+
+
 
 .transition-transform {
   transition-property: transform;

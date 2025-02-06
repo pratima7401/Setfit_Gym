@@ -1,37 +1,36 @@
-import React from 'react';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Button } from './ui/button';
-import { Check } from 'lucide-react';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Button } from "./ui/button";
+import { Check } from "lucide-react";
 
 const plans = [
   {
-    name: 'Monthly Plan',
-    premiumLabel: '✨ Starter',
-    price: '₹1800',
-    duration: '1 Month',
-    features: ['Access to gym equipment', 'Locker room access', 'Free weights area'],
+    name: "Monthly Plan",
+    premiumLabel: "✨ Starter",
+    price: "₹1800",
+    duration: "1 Month",
+    features: ["Access to gym equipment", "Locker room access", "Free weights area"],
   },
   {
-    name: 'Quarterly Plan',
-    premiumLabel: '🏆 Silver',
-    price: '₹3800',
-    duration: '3 Months',
-    features: ['All Monthly features', 'Group fitness classes'],
+    name: "Quarterly Plan",
+    premiumLabel: "🏆 Silver",
+    price: "₹3800",
+    duration: "3 Months",
+    features: ["All Monthly features", "Group fitness classes"],
   },
   {
-    name: 'Termly Plan',
-    premiumLabel: '🥉 Bronze',
-    price: '₹5500',
-    duration: '6 Months',
-    features: ['All Quarterly features', 'Personal trainer (2 sessions/month)'],
+    name: "Termly Plan",
+    premiumLabel: "🥉 Bronze",
+    price: "₹5500",
+    duration: "6 Months",
+    features: ["All Quarterly features", "Personal trainer (2 sessions/month)"],
   },
   {
-    name: 'Annual Plan',
-    premiumLabel: '👑 Golden',
-    price: '₹8000',
-    duration: '12 Months',
-    features: ['All Termly features', 'Unlimited personal training', 'Nutrition consultation'],
+    name: "Annual Plan",
+    premiumLabel: "👑 Golden",
+    price: "₹8000",
+    duration: "12 Months",
+    features: ["All Termly features", "Unlimited personal training", "Nutrition consultation"],
   },
 ];
 
@@ -39,25 +38,25 @@ function MembershipPlans() {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const phoneNumber = '+919130192067'; // Replace with your actual contact number
+  const phoneNumber = "+919130192067"; // Replace with your actual contact number
 
   const handlePlanClick = (index) => {
     setSelectedPlan(index);
-    setShowModal(true); // Open modal on button click
+    setShowModal(true);
   };
 
   const handleWhatsAppClick = () => {
-    window.open(`https://wa.me/${9130192067}`, '_blank');
-    setShowModal(false); // Close modal after clicking
+    window.open(`https://wa.me/${phoneNumber.replace("+", "")}`, "_blank");
+    setShowModal(false);
   };
 
   const handleCallClick = () => {
-    window.location.href = `tel:${9130192067}`;
-    setShowModal(false); // Close modal after clicking
+    window.location.href = `tel:${phoneNumber}`;
+    setShowModal(false);
   };
 
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-800 via-gray-900 to-black">
+    <section className="container py-16 bg-gradient-to-b from-gray-800 via-gray-900 to-black">
       <div className="container mx-auto px-4">
         <motion.h2
           className="text-5xl font-extrabold mb-12 text-center text-white animate-pulse"
@@ -71,17 +70,13 @@ function MembershipPlans() {
           {plans.map((plan, index) => (
             <motion.div
               key={index}
-              onMouseEnter={() => setSelectedPlan(index)}
-              onMouseLeave={() => setSelectedPlan(null)}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className={`relative transition-transform duration-500 transform ${
-                selectedPlan === index ? 'scale-105 shadow-2xl z-10' : 'scale-95 opacity-90'
-              } bg-[#1a202c] w-80 rounded-lg p-6 cursor-pointer hover:scale-100 hover:shadow-2xl hover:opacity-100 flex flex-col justify-between`}
+              className="relative bg-[#1a202c] w-80 rounded-lg p-6 cursor-pointer hover:shadow-xl flex flex-col justify-between"
             >
               {selectedPlan === index && (
                 <motion.div
@@ -107,14 +102,12 @@ function MembershipPlans() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-auto">
-                <Button
-                  className="w-full bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => handlePlanClick(index)}
-                >
-                  Choose Plan
-                </Button>
-              </div>
+              <Button
+                className="w-full bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-bold py-2 px-4 rounded"
+                onClick={() => handlePlanClick(index)}
+              >
+                Choose Plan
+              </Button>
             </motion.div>
           ))}
         </div>
@@ -127,30 +120,34 @@ function MembershipPlans() {
             className="bg-white p-6 rounded-lg shadow-lg text-center w-96"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
             transition={{ duration: 0.3 }}
           >
             <h3 className="text-xl font-bold mb-4">Contact Us</h3>
             <p className="mb-4 text-gray-700">Choose how you'd like to get in touch:</p>
             <div className="flex justify-center gap-4">
-              <Button
+              <button
                 className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
                 onClick={handleWhatsAppClick}
+                aria-label="Contact via WhatsApp"
               >
                 WhatsApp
-              </Button>
-              <Button
+              </button>
+              <button
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                 onClick={handleCallClick}
+                aria-label="Call now"
               >
                 Call Now
-              </Button>
+              </button>
             </div>
-            <Button
+            <button
               className="mt-4 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded"
               onClick={() => setShowModal(false)}
+              aria-label="Close modal"
             >
               Cancel
-            </Button>
+            </button>
           </motion.div>
         </div>
       )}

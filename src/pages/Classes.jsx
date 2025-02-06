@@ -60,7 +60,6 @@ function ClassCard({ cls, openModal }) {
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
-      viewport={{ once: true, amount: 0.2 }}
       onClick={() => openModal(cls)}
     >
       {/* Image Section */}
@@ -105,12 +104,12 @@ function Classes() {
   };
 
   return (
-    <section className="py-12 px-12 bg-gray-800 max-w-10xl bg-gradient-to-br from-purple-900 to-gray-600">
-      <div className="container mx-auto px-8 py-8 max-w-6xl">
+    <section className="container py-12 px-12 bg-gray-800 max-w-10xl bg-gradient-to-r from-teal-800 to-purple-600">
+      <div className="container mx-auto px-8 py-8 max-w-5xl">
         <h2 className="text-4xl font-bold mb-8 text-center text-gray-50">
           Rhythm & Flow
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
           {classes.map((cls, index) => (
             <ClassCard key={index} cls={cls} openModal={openModal} />
           ))}
@@ -130,7 +129,7 @@ function Classes() {
             <img
               src={selectedClass.image}
               alt={selectedClass.name}
-              className="w-full h-40 object-cover rounded"
+              className="w-full h-45 object-cover rounded"
             />
             <h3 className="text-2xl font-bold mt-4">{selectedClass.name}</h3>
             <p className="text-gray-400 mt-2">{selectedClass.description}</p>

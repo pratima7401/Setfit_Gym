@@ -2,39 +2,7 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { motion } from "framer-motion";
-import Logo from "../assets/set-fit-logo2.png";
-
-const BarLoader = () => {
-  const variants = {
-    initial: { scaleY: 0.5, opacity: 0 },
-    animate: {
-      scaleY: 1,
-      opacity: 1,
-      transition: {
-        repeat: Infinity,
-        repeatType: "mirror",
-        duration: 1,
-        ease: "circIn",
-      },
-    },
-  };
-
-  return (
-    <motion.div
-      transition={{ staggerChildren: 0.25 }}
-      initial="initial"
-      animate="animate"
-      className="flex gap-1"
-    >
-      <motion.div variants={variants} className="h-12 w-2 bg-white" />
-      <motion.div variants={variants} className="h-12 w-2 bg-white" />
-      <motion.div variants={variants} className="h-12 w-2 bg-white" />
-      <motion.div variants={variants} className="h-12 w-2 bg-white" />
-      <motion.div variants={variants} className="h-12 w-2 bg-white" />
-    </motion.div>
-  );
-};
+import Logo from "../assets/logo.png";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -67,18 +35,18 @@ function Header() {
     <>
       {loading && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-          <BarLoader />
+    
         </div>
       )}
 
-      <header className="bg-gray-800 shadow-md py-3 sticky top-0 z-50 h-16 md:h-20">
+      <header className="container bg-gray-800 shadow-md py-3 sticky top-0 z-50 h-16 md:h-20 mb-0"> {/* Ensure mb-0 is added */}
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             {/* Logo */}
             <Link to="/" className="flex items-center">
               <img src={Logo} alt="Gym Logo" className="h-30 md:h-28 mt-4 w-auto object-contain" />
             </Link>
-
+          
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-6">
               {navItems.map((item) => (

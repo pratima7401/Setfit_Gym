@@ -2,7 +2,7 @@ import React from 'react';
 
 // Form Component
 const ContactForm = () => (
-  <div className="w-1/2 bg-white p-6 rounded-lg shadow-md">
+  <div className="container w-1/2 bg-white p-6 rounded-lg shadow-md">
     <h1 className="text-4xl font-bold mb-8 text-center text-black">
   Enquiry Here
 </h1>
@@ -43,7 +43,7 @@ const ContactForm = () => (
 
 // Contact Details Component
 const ContactDetails = () => (
-  <div className="w-1/2 p-6 bg-gray-200">
+  <div className="container w-1/2 p-6 bg-gray-200">
    <h1 className="text-4xl font-bold mb-8 text-center text-black">
   Contact Us 
 </h1>

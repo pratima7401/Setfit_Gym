@@ -15,28 +15,28 @@ const trainers = [
     name: 'John Doe',
     image: male1,
     specialty: 'Strength Training',
-    experience: '10 years',
+    experience: '4 years',
     certifications: ['NASM Certified Personal Trainer', 'CrossFit Level 2 Trainer']
   },
   {
     name: 'Jane Smith',
     image: male2,
     specialty: 'Cardio and HIIT',
-    experience: '8 years',
+    experience: '3 years',
     certifications: ['ACE Certified Personal Trainer', 'TRX Suspension Training Certified']
   },
   {
     name: 'Mike Johnson',
     image: male3,
     specialty: 'Strength Training',
-    experience: '8 years',
+    experience: '4 years',
     certifications: ['ACE Certified Personal Trainer', 'TRX Suspension Training Certified']
   },
   {
     name: 'Emily Brown',
     image: Female1,
     specialty: 'Zumba Trainer',
-    experience: '6 years',
+    experience: '2 years',
     certifications: ['Precision Nutrition Level 2 Certified', 'NASM Weight Loss Specialist']
   },
   {
@@ -51,7 +51,7 @@ const trainers = [
 
 function TrainerModal({ trainer, onClose }) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className="container fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-gray-800 rounded-lg max-w-2xl w-full p-6 relative">
         <button
           onClick={onClose}

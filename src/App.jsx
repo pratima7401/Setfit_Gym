@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Layout from './components/Layout';
+import Layout from './Components/Layout';
 import Home from './pages/Home';
 import Classes from './pages/Classes';
 import Trainers from './pages/Trainers';
@@ -14,7 +14,7 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="App bg-gray-900 text-white min-h-screen">
+      <div className="App bg-gray-900 m-0 p-0 text-white min-h-screen">
         <Routes>
           <Route path="/" element={<Layout><Home /></Layout>} />
           <Route path="/classes" element={<Layout><Classes /></Layout>} />

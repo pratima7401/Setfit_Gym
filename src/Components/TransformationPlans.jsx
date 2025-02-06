@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -60,17 +59,17 @@ const TransformationPlan = () => {
   };
 
   const handleWhatsAppClick = () => {
-    window.open(`https://wa.me/${9130192067}`, '_blank');
+    window.open(`https://wa.me/${phoneNumber}`, '_blank');
     setShowModal(false);
   };
 
   const handleCallClick = () => {
-    window.location.href = `tel:${9130192067}`;
+    window.location.href = `tel:${phoneNumber}`;
     setShowModal(false);
   };
 
   return (
-    <section className="transformation-plan-container bg-purple-900 py-12 px-6 text-white min-h-screen">
+    <section className="container transformation-plan-container bg-gradient-to-r from-teal-900 to-purple-600 py-12 px-6 text-white min-h-screen">
       <h2 className="text-5xl font-extrabold mb-12 text-center text-white">
         Explore Transformation Plans
       </h2>
@@ -134,25 +133,25 @@ const TransformationPlan = () => {
             <h3 className="text-xl font-bold mb-4">Contact Us</h3>
             <p className="mb-4 text-gray-700">Choose how you'd like to get in touch:</p>
             <div className="flex justify-center gap-4">
-              <Button
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+              <button
+                className="bg-green-800 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
                 onClick={handleWhatsAppClick}
               >
                 WhatsApp
-              </Button>
-              <Button
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              </button>
+              <button
+                className="bg-blue-800 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                 onClick={handleCallClick}
               >
                 Call Now
-              </Button>
+              </button>
             </div>
-            <Button
+            <button
               className="mt-4 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded"
               onClick={() => setShowModal(false)}
             >
               Cancel
-            </Button>
+            </button>
           </motion.div>
         </div>
       )}

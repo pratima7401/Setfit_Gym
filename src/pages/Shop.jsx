@@ -25,15 +25,15 @@ function Shop() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen">
+    <div className=" container bg-gray-900 min-h-screen">
       <div className="sticky top-0 z-40 bg-gray-900 shadow-md">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <h1 className="text-4xl font-bold text-white">Supplements Shop</h1>
-            <div className="relative">
+            {/* <div className="relative">
               <ShoppingCart className="h-6 w-6 text-white" />
               <span className="absolute -top-2 -right-2 bg-purple-600 text-white rounded-full px-2 py-1 text-xs">{cartItems.length}</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
