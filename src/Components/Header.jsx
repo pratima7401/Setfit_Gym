@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
@@ -34,19 +34,23 @@ function Header() {
   return (
     <>
       {loading && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-    
-        </div>
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50"></div>
       )}
 
-      <header className="container bg-gray-800 shadow-md py-3 sticky top-0 z-50 h-16 md:h-20 mb-0"> {/* Ensure mb-0 is added */}
+      <header className="container bg-gray-800 shadow-md py-3 sticky top-0 z-50 h-16 md:h-20 mb-0">
+        {" "}
+        {/* Ensure mb-0 is added */}
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             {/* Logo */}
             <Link to="/" className="flex items-center">
-              <img src={Logo} alt="Gym Logo" className="h-30 md:h-28 mt-4 w-auto object-contain" />
+              <img
+                src={Logo}
+                alt="Gym Logo"
+                className="h-auto max-h-20 md:max-h-28 lg:max-h-32 w-auto object-contain"
+              />
             </Link>
-          
+
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-6">
               {navItems.map((item) => (
@@ -64,23 +68,37 @@ function Header() {
             </nav>
 
             {/* Hamburger Menu */}
-            <button className="md:hidden text-gray-300 focus:outline-none z-50" onClick={toggleMenu} aria-label="Toggle menu">
+            <button
+              className="md:hidden text-gray-300 focus:outline-none z-50"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+            >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
-
         {/* Flyout Menu */}
-        <div className={`fixed inset-0 z-40 transition-transform transform ease-in-out duration-300 ${isMenuOpen ? "translate-x-0" : "translate-x-full"} md:hidden`}>
+        <div
+          className={`fixed inset-0 z-40 transition-transform transform ease-in-out duration-300 ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          } md:hidden`}
+        >
           {/* Flyout Background Overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-50" onClick={closeMenu}></div>
+          <div
+            className="absolute inset-0 bg-black bg-opacity-50"
+            onClick={closeMenu}
+          ></div>
 
           {/* Flyout Menu Content */}
           <div className="absolute right-0 top-0 bottom-0 w-2/3 bg-gray-800 shadow-lg flex flex-col z-50">
             {/* Flyout Header */}
             <div className="flex justify-between items-center p-4 border-b border-gray-700">
               <span className="text-xl font-bold text-white">Menu</span>
-              <button className="text-gray-300 focus:outline-none" onClick={closeMenu} aria-label="Close menu">
+              <button
+                className="text-gray-300 focus:outline-none"
+                onClick={closeMenu}
+                aria-label="Close menu"
+              >
                 <X size={24} />
               </button>
             </div>
