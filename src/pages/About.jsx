@@ -27,7 +27,7 @@ function About() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
         >
-          <h2 className="title-font sm:text-4xl text-4xl mb-5 font-medium text-purple-600 animate-pulse">
+          <h2 className="title-font sm:text-4xl text-4xl mb-5 font-medium text-purple-600">
             About Us
             <br className="lg:inline-block" />
             <span className="lg:inline-block sm:text-xl text-gray-300 ">
