@@ -1,102 +1,117 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import Logo from "../assets/logo.png";
 
-// Form Component
-const ContactForm = () => (
-  <div className="container w-1/2 bg-white p-6 rounded-lg shadow-md">
-    <h1 className="text-4xl font-bold mb-8 text-center text-black">
-  Enquiry Here
-</h1>
-    <form>
-      <input
-        type="text"
-        placeholder="Enter your full name"
-        className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
-        required
-      />
-      <input
-        type="email"
-        placeholder="Enter your email address"
-        className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
-        required
-      />
-      <input
-        type="tel"
-        placeholder="Enter your phone number"
-        className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
-        required
-      />
-      <textarea
-        placeholder="Enter your message"
-        className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
-        rows="4"
-        required
-      ></textarea>
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
-      >
-        Send Message
-      </button>
-    </form>
-  </div>
-);
+function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const location = useLocation();
 
-// Contact Details Component
-const ContactDetails = () => (
-  <div className="container w-1/2 p-6 bg-gray-200">
-   <h1 className="text-4xl font-bold mb-8 text-center text-black">
-  Contact Us 
-</h1>
+  useEffect(() => {
+    setLoading(true);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [location.pathname]);
 
-    <div className="text-lg text-gray-600">
-      <p className="mb-4">
-        <strong>Operating Hours:</strong> <br />
-        Monday to Saturday: 6:00am to 10:00pm <br />
-        Peak Hours: 7:00am to 09:00pm & 6:00pm to 8:00pm <br />
-        Sunday: Holiday
-      </p>
-      <p className="mb-4">
-        <strong>Address:</strong> <br />
-        Shahu Colony Lane Number 3A, near Cummins College Road, above Vidya Girls
-        PG, Karve Nagar, Pune 411038
-      </p>
-      <p className="mb-4">
-        <strong>Telephone:</strong> <br />
-        +91 9130192067
-      </p>
-      <p className="mb-4">
-        <strong>Location:</strong> <br />
-        <a
-          href="https://www.google.com/maps/place/SET-FIT+HEALTH+CLUB/@18.4863998,73.8146633,826m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3bc2bf480d4a270b:0x1d9c8fe7b965d44e!8m2!3d18.4863998!4d73.8172382!16s%2Fg%2F11vrzgwhww?entry=ttu&g_ep=EgoyMDI1MDExNS4wIKXMDSoASAFQAw%3D%3D"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline"
-        >
-          View on Google Maps
-        </a>
-      </p>
-      <div className="mt-6">
-        <iframe
-          title="Google Map Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.9624609727457!2d73.81466331502365!3d18.486399825310825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf480d4a270b%3A0x1d9c8fe7b965d44e!2sSET-FIT%20HEALTH%20CLUB!5e0!3m2!1sen!2sin!4v1679042728531!5m2!1sen!2sin"
-          width="100%"
-          height="200"
-          style={{ border: 0 }}
-          allowFullScreen=""
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>
-    </div>
-  </div>
-);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
-// Main Contact Component
-const Contact = () => (
-  <div className="flex justify-between p-8 bg-gray-700">
-    <ContactForm />
-    <ContactDetails />
-  </div>
-);
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "Active Batches", path: "/classes" },
+    { name: "Special Groove", path: "/speciality" },
+    { name: "About Us", path: "/about" },
+    { name: "Trainers", path: "/trainers" },
+    { name: "Shop", path: "/shop" },
+    { name: "Contact", path: "/contact" },
+  ];
 
-export default Contact;
+  return (
+    <>
+      {loading && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50"></div>
+      )}
+
+      <header className="container bg-gray-800 shadow-md py-3 sticky top-0 z-50 h-16 md:h-20">
+        <div className="container mx-auto px-4 h-full flex justify-between items-center">
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <img
+              src={Logo}
+              alt="Gym Logo"
+              className="h-auto max-h-20 md:max-h-28 lg:max-h-32 w-auto object-contain"
+            />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`text-gray-300 hover:text-purple-400 transition-colors ${
+                  location.pathname === item.path ? "text-purple-400" : ""
+                }`}
+                onClick={() => setLoading(true)}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Hamburger Menu Button (Mobile) */}
+          <button
+            className="md:hidden text-gray-300 focus:outline-none z-50"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Flyout Mobile Menu */}
+        {isMenuOpen && (
+          <div className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden">
+            <div className="absolute right-0 top-0 bottom-0 w-2/3 bg-gray-800 shadow-lg flex flex-col z-50">
+              {/* Close Button inside the menu */}
+              <div className="flex justify-between items-center p-4 border-b border-gray-700">
+                <span className="text-xl font-bold text-white">Menu</span>
+                <button
+                  className="text-gray-300 focus:outline-none"
+                  onClick={closeMenu}
+                  aria-label="Close menu"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              {/* Flyout Navigation */}
+              <nav className="flex flex-col p-4 space-y-4">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.path}
+                    className={`text-gray-300 hover:text-purple-400 transition-colors py-2 ${
+                      location.pathname === item.path ? "text-purple-400" : ""
+                    }`}
+                    onClick={() => {
+                      closeMenu();
+                      setLoading(true);
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
+  );
+}
+
+export default Header;

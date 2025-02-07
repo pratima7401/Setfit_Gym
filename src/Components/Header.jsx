@@ -81,7 +81,7 @@ function Header() {
             <div className="flex justify-between items-center p-4 border-b border-gray-700">
               <span className="text-xl font-bold text-white">Menu</span>
               <button className="text-gray-300 focus:outline-none" onClick={closeMenu} aria-label="Close menu">
-                <X size={24} />
+                {/* <X size={24} /> */}
               </button>
             </div>
 
