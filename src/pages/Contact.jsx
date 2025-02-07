@@ -41,7 +41,7 @@ const ContactForm = () => (
 
 // Contact Details Component
 const ContactDetails = () => (
-  <div className="w-full md:w-1/2 p-6 bg-gray-200">
+  <div className="w-full md:w-1/2 p-6 rounded-lg bg-gray-200">
     <h1 className="text-4xl font-bold mb-8 text-center text-black">Contact Us</h1>
     <div className="text-lg text-gray-600">
       <p className="mb-4">
