@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import YogaImage from "../assets/yoga.jpg";
 import ZumbaImage from "../assets/zumba.jpg";
@@ -6,7 +6,6 @@ import FunctionalImage from "../assets/functional.jpg";
 import BollywoodImage from "../assets/bollywood.jpg";
 import CardioImage from "../assets/cardio.jpg";
 import ABS from "../assets/ABS.jpg";
-import { useState } from "react";
 
 const classes = [
   {
@@ -53,53 +52,20 @@ const classes = [
   },
 ];
 
-function ClassCard({ cls, openModal }) {
-  return (
-    <motion.div
-      className="bg-gray-900 shadow-lg transform transition-transform duration-300 hover:scale-105 rounded-lg overflow-hidden cursor-pointer"
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
-      onClick={() => openModal(cls)}
-    >
-      {/* Image Section */}
-      <div className="relative h-60">
-        <img
-          src={cls.image}
-          alt={cls.name}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
-        {/* <p className="absolute bottom-2 left-2 bg-purple-600 text-white text-sm px-2 py-1 rounded">
-          {cls.name}
-        </p> */}
-      </div>
-
-      {/* Content Section */}
-      <div className="p-4">
-        <p className="text-xl font-bold text-purple-400">{cls.name}</p>
-        <p className="text-gray-300 text-sm mt-2">{cls.description}</p>
-        <div className="mt-4 text-gray-400 text-sm">
-          <p>
-            <span className="font-bold text-purple-300">Day:</span> {cls.day}
-          </p>
-          <p>
-            <span className="font-bold text-purple-300">Time:</span> {cls.time}
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 function Classes() {
   const [selectedClass, setSelectedClass] = useState(null);
+  const modalRef = useRef(null);
 
-  const openModal = (cls) => {
-    setSelectedClass(cls);
-  };
+  useEffect(() => {
+    if (selectedClass) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [selectedClass]);
 
-  const closeModal = () => {
+  const closeModal = (e) => {
+    if (!modalRef.current || modalRef.current.contains(e.target)) return;
     setSelectedClass(null);
   };
 
@@ -111,18 +77,39 @@ function Classes() {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
           {classes.map((cls, index) => (
-            <ClassCard key={index} cls={cls} openModal={openModal} />
+            <motion.div
+              key={index}
+              className="bg-gray-900 shadow-lg transform transition-transform duration-300 hover:scale-105 rounded-lg overflow-hidden cursor-pointer"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              onClick={() => setSelectedClass(cls)}
+            >
+              <div className="relative h-60">
+                <img
+                  src={cls.image}
+                  alt={cls.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-4">
+                <p className="text-xl font-bold text-purple-400">{cls.name}</p>
+                <p className="text-gray-300 text-sm mt-2">{cls.description}</p>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Modal */}
       {selectedClass && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-gray-900 text-gray-200 rounded-lg p-6 w-96 relative">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          onClick={closeModal}
+        >
+          <div ref={modalRef} className="bg-gray-900 text-gray-200 rounded-lg p-6 w-96 relative">
             <button
               className="absolute top-2 right-2 text-gray-400 hover:text-white"
-              onClick={closeModal}
+              onClick={() => setSelectedClass(null)}
             >
               ✖
             </button>
@@ -133,21 +120,10 @@ function Classes() {
             />
             <h3 className="text-2xl font-bold mt-4">{selectedClass.name}</h3>
             <p className="text-gray-400 mt-2">{selectedClass.description}</p>
-            <div className="mt-4">
-              <p>
-                <span className="font-bold text-purple-300">Day:</span>{" "}
-                {selectedClass.day}
-              </p>
-              <p>
-                <span className="font-bold text-purple-300">Time:</span>{" "}
-                {selectedClass.time}
-              </p>
-            </div>
           </div>
         </div>
       )}
     </section>
-
   );
 }
 

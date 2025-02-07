@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Logo from "../assets/logo.png";
@@ -7,6 +7,7 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
+  const menuRef = useRef(null);
 
   useEffect(() => {
     setLoading(true);
@@ -15,6 +16,30 @@ function Header() {
     }, 1000);
     return () => clearTimeout(timeout);
   }, [location.pathname]);
+
+  // Disable background scrolling when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isMenuOpen]);
+
+  // Close the menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
@@ -39,12 +64,12 @@ function Header() {
         <div className="container mx-auto px-4 h-full flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img
-              src={Logo}
-              alt="Gym Logo"
-              className="h-auto max-h-20 md:max-h-28 lg:max-h-32 w-auto object-contain"
-            />
-          </Link>
+  <img
+    src={Logo}
+    alt="Gym Logo"
+    className="h-16 md:h-24 lg:h-28 w-auto object-contain"
+  />
+</Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-6">
@@ -75,7 +100,10 @@ function Header() {
         {/* Flyout Mobile Menu */}
         {isMenuOpen && (
           <div className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden">
-            <div className="absolute right-0 top-0 bottom-0 w-2/3 bg-gray-800 shadow-lg flex flex-col z-50">
+            <div
+              ref={menuRef}
+              className="absolute right-0 top-0 bottom-0 w-2/3 bg-gray-800 shadow-lg flex flex-col z-50"
+            >
               {/* Close Button inside the menu */}
               <div className="flex justify-between items-center p-4 border-b border-gray-700">
                 <span className="text-xl font-bold text-white">Menu</span>
@@ -84,6 +112,7 @@ function Header() {
                   onClick={closeMenu}
                   aria-label="Close menu"
                 >
+                  <X size={24} />
                 </button>
               </div>
 
