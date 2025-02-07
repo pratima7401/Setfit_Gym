@@ -112,7 +112,6 @@ function Header() {
                   onClick={closeMenu}
                   aria-label="Close menu"
                 >
-                  <X size={24} />
                 </button>
               </div>
 
