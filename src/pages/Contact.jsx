@@ -2,10 +2,8 @@ import React from 'react';
 
 // Form Component
 const ContactForm = () => (
-  <div className="container w-1/2 bg-white p-6 rounded-lg shadow-md">
-    <h1 className="text-4xl font-bold mb-8 text-center text-black">
-  Enquiry Here
-</h1>
+  <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md">
+    <h1 className="text-4xl font-bold mb-8 text-center text-black">Enquiry Here</h1>
     <form>
       <input
         type="text"
@@ -43,11 +41,8 @@ const ContactForm = () => (
 
 // Contact Details Component
 const ContactDetails = () => (
-  <div className="container w-1/2 p-6 bg-gray-200">
-   <h1 className="text-4xl font-bold mb-8 text-center text-black">
-  Contact Us 
-</h1>
-
+  <div className="w-full md:w-1/2 p-6 bg-gray-200">
+    <h1 className="text-4xl font-bold mb-8 text-center text-black">Contact Us</h1>
     <div className="text-lg text-gray-600">
       <p className="mb-4">
         <strong>Operating Hours:</strong> <br />
@@ -57,8 +52,7 @@ const ContactDetails = () => (
       </p>
       <p className="mb-4">
         <strong>Address:</strong> <br />
-        Shahu Colony Lane Number 3A, near Cummins College Road, above Vidya Girls
-        PG, Karve Nagar, Pune 411038
+        Shahu Colony Lane Number 3A, near Cummins College Road, above Vidya Girls PG, Karve Nagar, Pune 411038
       </p>
       <p className="mb-4">
         <strong>Telephone:</strong> <br />
@@ -93,10 +87,10 @@ const ContactDetails = () => (
 
 // Main Contact Component
 const Contact = () => (
-  <div className="flex justify-between p-8 bg-gray-700">
+  <div className="flex flex-col md:flex-row justify-between p-8 bg-gray-700 gap-6">
     <ContactForm />
     <ContactDetails />
   </div>
 );
 
-export default Contact;
+export default Contact;
