@@ -8,6 +8,8 @@ import Shop from './pages/Shop';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import OurSpeciality from './pages/OurSpecial';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './Components/AdminDashboard';
 import './App.css';
 
 
@@ -23,6 +25,8 @@ function App() {
           <Route path="/shop" element={<Layout><Shop /></Layout>} />
           <Route path="/about" element={<Layout><About /></Layout>} />
           <Route path="/contact" element={<Layout><Contact /></Layout>} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Routes>
       </div>
     </Router>

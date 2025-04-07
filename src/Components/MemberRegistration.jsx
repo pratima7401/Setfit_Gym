@@ -1,3 +1,4 @@
+//MemberRegistration Component
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -31,12 +32,38 @@ function MemberRegistration() {
     setFormData({ ...formData, medicalIssue: 'No', medicalDetails: '' });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Data Submitted:', formData);
-    setStatus('Form submitted successfully!');
-    setFormData({ name: '', email: '', phone: '', msg: '', purpose: '', medicalIssue: 'No', medicalDetails: '' });
+  
+    try {
+      const response = await fetch("http://localhost/gym_api/register.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      // Ensure response is valid JSON
+      const text = await response.text();
+      console.log("Raw Response:", text); // Debugging: Check what PHP is returning
+  
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch (jsonError) {
+        throw new Error("Invalid JSON received from server.");
+      }
+  
+      setStatus(result.message);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setStatus("Error submitting form. Please try again.");
+    }
   };
+  
+  
+  
 
   return (
     <section className="py-16 bg-gray-800">

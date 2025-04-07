@@ -1,43 +1,98 @@
-import React from 'react';
+import React, { useState } from "react";
 
 // Form Component
-const ContactForm = () => (
-  <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md">
-    <h1 className="text-4xl font-bold mb-8 text-center text-black">Enquiry Here</h1>
-    <form>
-      <input
-        type="text"
-        placeholder="Enter your full name"
-        className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
-        required
-      />
-      <input
-        type="email"
-        placeholder="Enter your email address"
-        className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
-        required
-      />
-      <input
-        type="tel"
-        placeholder="Enter your phone number"
-        className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
-        required
-      />
-      <textarea
-        placeholder="Enter your message"
-        className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
-        rows="4"
-        required
-      ></textarea>
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
-      >
-        Send Message
-      </button>
-    </form>
-  </div>
-);
+const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    full_name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [responseMessage, setResponseMessage] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await fetch("http://localhost/gym_backend/submit_contact.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      setResponseMessage(data.message);
+      setFormData({ full_name: "", email: "", phone: "", message: "" });
+    } catch (error) {
+      console.error("Error:", error);
+      setResponseMessage("Failed to send message. Please try again.");
+    }
+  };
+
+  return (
+    <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md">
+      <h1 className="text-4xl font-bold mb-8 text-center text-black">Enquiry Here</h1>
+      {responseMessage && (
+        <p className="text-center text-green-600 font-bold mb-4">{responseMessage}</p>
+      )}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="full_name"
+          value={formData.full_name}
+          onChange={handleChange}
+          placeholder="Enter your full name"
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Enter your email address"
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
+          required
+        />
+        <input
+          type="tel"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          placeholder="Enter your phone number"
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
+          required
+        />
+        <textarea
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          placeholder="Enter your message"
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-black"
+          rows="4"
+          required
+        ></textarea>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
+  );
+};
 
 // Contact Details Component
 const ContactDetails = () => (

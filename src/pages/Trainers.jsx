@@ -1,69 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 
-import Female1 from "../assets/fe_trainer1.jpg";
-import Female2 from "../assets/fe_trainer2.jpg";
-import male1 from "../assets/m_trainer1.jpg";
-import male2 from "../assets/m_trainer2.jpg";
-import male3 from "../assets/m_trainer3.jpg";
-
-const trainers = [
-  {
-    name: "John Doe",
-    image: male1,
-    specialty: "Strength Training",
-    experience: "4 years",
-    certifications: [
-      "NASM Certified Personal Trainer",
-      "CrossFit Level 2 Trainer",
-    ],
-  },
-  {
-    name: "Jane Smith",
-    image: male2,
-    specialty: "Cardio and HIIT",
-    experience: "3 years",
-    certifications: [
-      "ACE Certified Personal Trainer",
-      "TRX Suspension Training Certified",
-    ],
-  },
-  {
-    name: "Mike Johnson",
-    image: male3,
-    specialty: "Strength Training",
-    experience: "4 years",
-    certifications: [
-      "ACE Certified Personal Trainer",
-      "TRX Suspension Training Certified",
-    ],
-  },
-  {
-    name: "Emily Brown",
-    image: Female1,
-    specialty: "Zumba Trainer",
-    experience: "2 years",
-    certifications: [
-      "Precision Nutrition Level 2 Certified",
-      "NASM Weight Loss Specialist",
-    ],
-  },
-  {
-    name: "Sarah Wilson",
-    image: Female2,
-    specialty: "Yoga and Flexibility",
-    experience: "5 years",
-    certifications: [
-      "RYT 200 Certified Yoga Instructor",
-      "NASM Certified Personal Trainer",
-    ],
-  },
-];
-
 function TrainerModal({ trainer, onClose }) {
   const modalRef = useRef(null);
 
-  // Close the modal when clicking outside of it
+  // Close modal when clicking outside
   const closeModal = (e) => {
     if (!modalRef.current || modalRef.current.contains(e.target)) return;
     onClose();
@@ -88,7 +29,7 @@ function TrainerModal({ trainer, onClose }) {
 
         <div className="flex flex-col items-center">
           <img
-            src={trainer.image}
+            src={`http://localhost/gym_api/uploads/${trainer.image}`}
             alt={trainer.name}
             className="w-48 h-48 object-cover rounded-full border-4 border-purple-500"
           />
@@ -102,7 +43,7 @@ function TrainerModal({ trainer, onClose }) {
             Certifications:
           </h3>
           <ul className="list-disc list-inside text-gray-400 mt-2">
-            {trainer.certifications.map((cert, index) => (
+            {trainer.certifications.split(",").map((cert, index) => (
               <li key={index}>{cert}</li>
             ))}
           </ul>
@@ -113,7 +54,20 @@ function TrainerModal({ trainer, onClose }) {
 }
 
 function Trainers() {
+  const [trainers, setTrainers] = useState([]);
   const [selectedTrainer, setSelectedTrainer] = useState(null);
+
+  // Fetch trainers from API
+  useEffect(() => {
+    fetch("http://localhost/gym_api/trainers.php?action=get")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setTrainers(data.trainers);
+        }
+      })
+      .catch((error) => console.error("Error fetching trainers:", error));
+  }, []);
 
   useEffect(() => {
     if (selectedTrainer) {
@@ -130,28 +84,32 @@ function Trainers() {
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-        {trainers.map((trainer, index) => (
+        {trainers.map((trainer) => (
           <div
-            key={index}
+            key={trainer.id}
             className="bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105"
             onClick={() => setSelectedTrainer(trainer)}
           >
             <img
-              src={trainer.image}
+              src={`http://localhost/gym_api/uploads/${trainer.image}`}
               alt={trainer.name}
               className="w-full h-64 object-cover"
             />
             <div className="p-6 text-center">
-              <h2 className="text-2xl font-bold text-white">{trainer.name}</h2>
-              <p className="text-purple-400 font-semibold">{trainer.specialty}</p>
-              <p className="text-gray-300 mt-1">{trainer.experience} of experience</p>
+              <h2 className="text-2xl font-bold text-purple-400">{trainer.name}</h2>
+              <p className="text-white font-semibold">{trainer.specialty}</p>
+              <p className="text-white font-semibold">{trainer.certifications}</p>
+              <p className="text-gray-300 mt-1">{trainer.experience} years of experience</p>
             </div>
           </div>
         ))}
       </div>
 
       {selectedTrainer && (
-        <TrainerModal trainer={selectedTrainer} onClose={() => setSelectedTrainer(null)} />
+        <TrainerModal
+          trainer={selectedTrainer}
+          onClose={() => setSelectedTrainer(null)}
+        />
       )}
     </div>
   );
